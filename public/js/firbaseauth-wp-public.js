@@ -1,75 +1,97 @@
-(function( $ ) {
-	'use strict';
-var url = WPURLS.siteurl; //outputs the site url without last /
+/* global firebase, firebaseui, PHPVAR */
 
-   // FirebaseUI config.
-            var uiConfig = {
-                callbacks: {
-          signInSuccess: function(currentUser, credential, redirectUrl) {
-            
+(function ($) {
+    'use strict';
+
+    $(function () {
+        var site_url = PHPVAR.siteurl; //outputs the site url without last /
+        var islogged = PHPVAR.islogged; //is user logged to wp (not checking for firebase login)
+        var fireconfig = PHPVAR.fireconfig;
+        var authurl = PHPVAR.authurl;
+        var authproviders = PHPVAR.authproviders;
+//console.log(PHPVAR);
+
+
+// Initialize Firebase
+        var config = fireconfig;
+        firebase.initializeApp(config);
+
+//initialize  firebase ui app
+        var initApp = function () {
+            firebase.auth().onAuthStateChanged(function (user) {
+                if (user) {
+                    //if user logged out word press he shuld be logged out firebase as well
+                    if (!islogged) {
+                        firebase.auth().signOut();
+                    }
+//                        user.getIdToken().then(function (accessToken) {            });
+
+                } else {
+                    if ($("#firebaseui-auth-container").length > 0) {
+                        // The start method will wait until the DOM is loaded.
+                        ui.start('#firebaseui-auth-container', uiConfig);
+                    }
+                }
+            }, function (error) {
+                console.log(error);
+            });
+        };
+        // FirebaseUI config.
+        var uiConfig = {
+            callbacks: {
+                signInSuccess: function (currentUser, credential, redirectUrl) {
+
 //            console.log(currentUser);
 //            console.log(credential);
 //            console.log(redirectUrl);
-            var acct =null;
-            currentUser.getIdToken().then(function (accessToken) {
-                acct = accessToken;
-                window.location.replace(url+"/fireauth-signin?tokken="+acct);
-            });
-            
-            // Return type determines whether we continue the redirect automatically
-            // or whether we leave that to developer to handle.
-            
-            return false;
-          },
-      },
-                signInFlow: 'popup', //redirect or popup
-                signInSuccessUrl: url,
-                signInOptions: [
-                    // Leave the lines as is for the providers you want to offer your users.
-                     firebase.auth.EmailAuthProvider.PROVIDER_ID,
-                    // firebase.auth.GoogleAuthProvider.PROVIDER_ID,
-                    firebase.auth.FacebookAuthProvider.PROVIDER_ID,
-                    firebase.auth.TwitterAuthProvider.PROVIDER_ID,
-                    // firebase.auth.GithubAuthProvider.PROVIDER_ID,
-                    firebase.auth.EmailAuthProvider.PROVIDER_ID,
-                            // firebase.auth.PhoneAuthProvider.PROVIDER_ID
-                ],
-                // Terms of service url.
-                tosUrl: '<your-tos-url>'
-            };
+                    var acct = null;
+                    currentUser.getIdToken().then(function (accessToken) {
+                        acct = accessToken;
+                        window.location.replace(site_url + "/" + authurl + "?tokken=" + acct);
+                    });
+                    // Return type determines whether we continue the redirect automatically
+                    // or whether we leave that to developer to handle.
 
-            // Initialize the FirebaseUI Widget using Firebase.
-            var ui = new firebaseui.auth.AuthUI(firebase.auth());
+                    return false;
+                },
+            },
+            signInFlow: 'popup', //redirect or popup
+            signInSuccessUrl: site_url,
+            signInOptions: authproviders,
+            // Terms of service url.
+            tosUrl: '<your-tos-url>'
+        };
+        // Initialize the FirebaseUI Widget using Firebase.
+        var ui = new firebaseui.auth.AuthUI(firebase.auth());
+        initApp(); //initilize the firebase app
 
+    });
 
-
-
-	/**
-	 * All of the code for your public-facing JavaScript source
-	 * should reside in this file.
-	 *
-	 * Note: It has been assumed you will write jQuery code here, so the
-	 * $ function reference has been prepared for usage within the scope
-	 * of this function.
-	 *
-	 * This enables you to define handlers, for when the DOM is ready:
-	 *
-	 * $(function() {
-	 *
-	 * });
-	 *
-	 * When the window is loaded:
-	 *
-	 * $( window ).load(function() {
-	 *
-	 * });
-	 *
-	 * ...and/or other possibilities.
-	 *
-	 * Ideally, it is not considered best practise to attach more than a
-	 * single DOM-ready or window-load handler for a particular page.
-	 * Although scripts in the WordPress core, Plugins and Themes may be
-	 * practising this, we should strive to set a better example in our own work.
-	 */
-
-})( jQuery );
+    /**
+     * All of the code for your public-facing JavaScript source
+     * should reside in this file.
+     *
+     * Note: It has been assumed you will write jQuery code here, so the
+     * $ function reference has been prepared for usage within the scope
+     * of this function.
+     *
+     * This enables you to define handlers, for when the DOM is ready:
+     *
+     * $(function() {
+     *
+     * });
+     *
+     * When the window is loaded:
+     *
+     * $( window ).load(function() {
+     *
+     * });
+     *
+     * ...and/or other possibilities.
+     *
+     * Ideally, it is not considered best practise to attach more than a
+     * single DOM-ready or window-load handler for a particular page.
+     * Although scripts in the WordPress core, Plugins and Themes may be
+     * practising this, we should strive to set a better example in our own work.
+     */
+})(jQuery);

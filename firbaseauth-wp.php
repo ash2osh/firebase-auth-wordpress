@@ -24,10 +24,9 @@
  * Text Domain:       firbaseauth-wp
  * Domain Path:       /languages
  */
-
 // If this file is called directly, abort.
-if ( ! defined( 'WPINC' ) ) {
-	die;
+if (!defined('WPINC')) {
+    die;
 }
 
 /**
@@ -35,8 +34,8 @@ if ( ! defined( 'WPINC' ) ) {
  * This action is documented in includes/class-firbaseauth-wp-activator.php
  */
 function activate_firbaseauth_wp() {
-	require_once plugin_dir_path( __FILE__ ) . 'includes/class-firbaseauth-wp-activator.php';
-	Firbaseauth_Wp_Activator::activate();
+    require_once plugin_dir_path(__FILE__) . 'includes/class-firbaseauth-wp-activator.php';
+    Firbaseauth_Wp_Activator::activate();
 }
 
 /**
@@ -44,18 +43,18 @@ function activate_firbaseauth_wp() {
  * This action is documented in includes/class-firbaseauth-wp-deactivator.php
  */
 function deactivate_firbaseauth_wp() {
-	require_once plugin_dir_path( __FILE__ ) . 'includes/class-firbaseauth-wp-deactivator.php';
-	Firbaseauth_Wp_Deactivator::deactivate();
+    require_once plugin_dir_path(__FILE__) . 'includes/class-firbaseauth-wp-deactivator.php';
+    Firbaseauth_Wp_Deactivator::deactivate();
 }
 
-register_activation_hook( __FILE__, 'activate_firbaseauth_wp' );
-register_deactivation_hook( __FILE__, 'deactivate_firbaseauth_wp' );
+register_activation_hook(__FILE__, 'activate_firbaseauth_wp');
+register_deactivation_hook(__FILE__, 'deactivate_firbaseauth_wp');
 
 /**
  * The core plugin class that is used to define internationalization,
  * admin-specific hooks, and public-facing site hooks.
  */
-require plugin_dir_path( __FILE__ ) . 'includes/class-firbaseauth-wp.php';
+require plugin_dir_path(__FILE__) . 'includes/class-firbaseauth-wp.php';
 
 /**
  * Begins execution of the plugin.
@@ -68,8 +67,15 @@ require plugin_dir_path( __FILE__ ) . 'includes/class-firbaseauth-wp.php';
  */
 function run_firbaseauth_wp() {
 
-	$plugin = new Firbaseauth_Wp();
-	$plugin->run();
-
+    $plugin = new Firbaseauth_Wp();
+    $plugin->run();
 }
+
 run_firbaseauth_wp();
+
+//setting using the generator from http://wpsettingsapi.jeroensormani.com/
+require_once plugin_dir_path(__FILE__) . 'includes/settings.php';
+
+
+
+

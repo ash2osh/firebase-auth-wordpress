@@ -1,0 +1,5 @@
+{
+    "require": {
+        "kreait/firebase-tokens": "^1.6"
+    }
+}

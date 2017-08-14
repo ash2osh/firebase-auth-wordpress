@@ -153,7 +153,7 @@ class Firbaseauth_Wp {
 
 		$this->loader->add_action( 'admin_enqueue_scripts', $plugin_admin, 'enqueue_styles' );
 		$this->loader->add_action( 'admin_enqueue_scripts', $plugin_admin, 'enqueue_scripts' );
-
+                
 	}
 
 	/**
@@ -169,7 +169,16 @@ class Firbaseauth_Wp {
 
 		$this->loader->add_action( 'wp_enqueue_scripts', $plugin_public, 'enqueue_styles' );
 		$this->loader->add_action( 'wp_enqueue_scripts', $plugin_public, 'enqueue_scripts' );
-
+		$this->loader->add_action( 'wp', $plugin_public, 'parse_signin_page_request' );
+                $this->loader->add_action( 'wp_logout', $plugin_public, 'logout_redirect' );
+                $this->loader->add_action( 'rest_api_init', $plugin_public, 'fawp_rest_api_init' );
+                $this->loader->add_filter('rest_api_init', $plugin_public, 'add_cors_support');
+                $this->loader->add_filter( 'login_url', $plugin_public, 'login_redirect',10,3 );
+                $this->loader->add_filter( 'determine_current_user', $plugin_public, 'figure_current_user',20) ; //must be low priority
+                
+                
+                //shortcodes are diffirent !!
+                add_shortcode( 'fireauth_signin', array($plugin_public, 'fireauth_signin_short') );
 	}
 
 	/**
