@@ -64,12 +64,14 @@ class Firbaseauth_Wp_Activator {
 
 //create the database tables needed
         global $wpdb;
-
-        $createSQL = "
-	CREATE TABLE " . $wpdb->prefix . "fireauth_users 
-( `user_id` BIGINT(20) NOT NULL , `uid` VARCHAR(99) NOT NULL ,PRIMARY KEY (`uid`))  
-ENGINE=InnoDB " . $wpdb->get_charset_collate() . ";";
-
+        $table_name = $wpdb->prefix . 'fireauth_users';
+        $wpdb_collate = $wpdb->collate;
+        $createSQL = "CREATE TABLE {$table_name} (
+         user_id BIGINT(20) unsigned NOT NULL ,
+         uid varchar(99) NOT NULL,
+         PRIMARY KEY  (uid)
+         )
+         COLLATE {$wpdb_collate}";
         //echo $createSQL;die();
         require_once( ABSPATH . '/wp-admin/includes/upgrade.php' );
         dbDelta($createSQL);
@@ -77,10 +79,17 @@ ENGINE=InnoDB " . $wpdb->get_charset_collate() . ";";
         //set default options
         $default = array(
             'fawp_textarea_field_0' => '{}',
-            'fawp_select_field_5' => 'fireauth-signin'
+            'fawp_checkbox_field_1' => 0,
+            'fawp_checkbox_field_2' => 0,
+            'fawp_checkbox_field_3' => 0,
+            'fawp_checkbox_field_4' => 0,
+            'fawp_select_field_5' => 'fireauth-signin',
+            'fawp_checkbox_field_6' => 0,
+            'fawp_checkbox_field_7' => 0,
         );
 
         update_option('fawp_settings', $default);
+
     }
 
 }

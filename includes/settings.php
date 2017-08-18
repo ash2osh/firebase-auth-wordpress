@@ -61,32 +61,36 @@ function fawp_textarea_field_0_render() {
 function fawp_checkbox_field_1_render() {
 
     $options = get_option('fawp_settings');
+    $val = isset($options['fawp_checkbox_field_1']) ? $options['fawp_checkbox_field_1'] : 0;
     ?>
-    <input type='checkbox' name='fawp_settings[fawp_checkbox_field_1]' <?php checked($options['fawp_checkbox_field_1'], 'facebook.com'); ?> value='facebook.com'>
+    <input type='checkbox' name='fawp_settings[fawp_checkbox_field_1]' <?php checked($val, 'facebook.com'); ?> value='facebook.com'>
     <?php
 }
 
 function fawp_checkbox_field_2_render() {
 
     $options = get_option('fawp_settings');
+    $val = isset($options['fawp_checkbox_field_2']) ? $options['fawp_checkbox_field_2'] : 0;
     ?>
-    <input type='checkbox' name='fawp_settings[fawp_checkbox_field_2]' <?php checked($options['fawp_checkbox_field_2'], 'google.com'); ?> value='google.com'>
+    <input type='checkbox' name='fawp_settings[fawp_checkbox_field_2]' <?php checked($val, 'google.com'); ?> value='google.com'>
     <?php
 }
 
 function fawp_checkbox_field_3_render() {
 
     $options = get_option('fawp_settings');
+    $val = isset($options['fawp_checkbox_field_3']) ? $options['fawp_checkbox_field_3'] : 0;
     ?>
-    <input type='checkbox' name='fawp_settings[fawp_checkbox_field_3]' <?php checked($options['fawp_checkbox_field_3'], 'twitter.com'); ?> value='twitter.com'>
+    <input type='checkbox' name='fawp_settings[fawp_checkbox_field_3]' <?php checked($val, 'twitter.com'); ?> value='twitter.com'>
     <?php
 }
 
 function fawp_checkbox_field_4_render() {
 
     $options = get_option('fawp_settings');
+    $val = isset($options['fawp_checkbox_field_4']) ? $options['fawp_checkbox_field_4'] : 0;
     ?>
-    <input type='checkbox' name='fawp_settings[fawp_checkbox_field_4]' <?php checked($options['fawp_checkbox_field_4'], 'password'); ?> value='password'>
+    <input type='checkbox' name='fawp_settings[fawp_checkbox_field_4]' <?php checked($val, 'password'); ?> value='password'>
     <?php
 }
 
@@ -114,16 +118,18 @@ function fawp_select_field_5_render() {
 function fawp_checkbox_field_6_render() {
 
     $options = get_option('fawp_settings');
+    $val = isset($options['fawp_checkbox_field_6']) ? $options['fawp_checkbox_field_6'] : 0;
     ?>
-    <input type='checkbox' name='fawp_settings[fawp_checkbox_field_6]' <?php checked($options['fawp_checkbox_field_6'], 1); ?> value='1'>
+    <input type='checkbox' name='fawp_settings[fawp_checkbox_field_6]' <?php checked($val, 1); ?> value='1'>
     <?php
 }
 
 function fawp_checkbox_field_7_render() {
 
     $options = get_option('fawp_settings');
+    $val = isset($options['fawp_checkbox_field_7']) ? $options['fawp_checkbox_field_7'] : 0;
     ?>
-    <input type='checkbox' name='fawp_settings[fawp_checkbox_field_7]' <?php checked($options['fawp_checkbox_field_7'], 1); ?> value='1'>
+    <input type='checkbox' name='fawp_settings[fawp_checkbox_field_7]' <?php checked($val, 1); ?> value='1'>
     <?php
 }
 

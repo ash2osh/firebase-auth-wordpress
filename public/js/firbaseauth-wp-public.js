@@ -14,7 +14,12 @@
 
 // Initialize Firebase
         var config = fireconfig;
-        firebase.initializeApp(config);
+        try {
+            firebase.initializeApp(config);
+        } catch (e) {
+            console.log(e);
+        }
+
 
 //initialize  firebase ui app
         var initApp = function () {
@@ -61,11 +66,18 @@
             // Terms of service url.
             tosUrl: '<your-tos-url>'
         };
-        // Initialize the FirebaseUI Widget using Firebase.
-        var ui = new firebaseui.auth.AuthUI(firebase.auth());
-        initApp(); //initilize the firebase app
 
-    });
+        try {
+            // Initialize the FirebaseUI Widget using Firebase.
+            var ui = new firebaseui.auth.AuthUI(firebase.auth());
+            initApp(); //initilize the firebase app 
+        } catch (e) {
+            console.log(e);
+        }
+
+
+
+    }); //end (function ($) {
 
     /**
      * All of the code for your public-facing JavaScript source

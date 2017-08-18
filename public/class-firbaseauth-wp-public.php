@@ -113,8 +113,12 @@ class Firbaseauth_Wp_Public {
             'islogged' => is_user_logged_in(),
             'fireconfig' => json_decode($this->fix_json($options['fawp_textarea_field_0'])),
             'authurl' => $options['fawp_select_field_5'],
-            'authproviders' => array($options['fawp_checkbox_field_1'], $options['fawp_checkbox_field_2'],
-                $options['fawp_checkbox_field_3'], $options['fawp_checkbox_field_4'])
+            'authproviders' => array(
+                isset($options['fawp_checkbox_field_1']) ? $options['fawp_checkbox_field_1'] : 0,
+                 isset($options['fawp_checkbox_field_2']) ? $options['fawp_checkbox_field_2'] : 0,
+                isset($options['fawp_checkbox_field_3']) ? $options['fawp_checkbox_field_3'] : 0,
+                isset($options['fawp_checkbox_field_4']) ? $options['fawp_checkbox_field_4'] : 0,
+                )
         );
         wp_localize_script($this->plugin_name, 'PHPVAR', $php_vars);
     }
@@ -145,7 +149,7 @@ class Firbaseauth_Wp_Public {
         $authurl = $options['fawp_select_field_5'];
         if (is_page($authurl)) {
             if (!is_user_logged_in()) {
-                if ($_GET['tokken']) {
+                if (isset($_GET['tokken']) && $_GET['tokken']) {
                     $projectId = 'testing-efcb1';
                     $verifier = new Verifier($projectId);
                     $idTokenString = $_GET['tokken'];
@@ -213,7 +217,7 @@ class Firbaseauth_Wp_Public {
     public function login_redirect($login_url, $redirect, $force_reauth) {
         $options = get_option('fawp_settings');
         $authurl = $options['fawp_select_field_5'];
-        $override = $options['fawp_checkbox_field_6'];
+        $override = isset($options['fawp_checkbox_field_6']) ? $options['fawp_checkbox_field_6'] : 0;
         if ($override && $override == 1) {
             return site_url($authurl);
         }
@@ -265,7 +269,7 @@ class Firbaseauth_Wp_Public {
 
     public function add_cors_support() {
         $options = get_option('fawp_settings');
-        $enable_cors = $options['fawp_checkbox_field_7'];
+        $enable_cors = isset($options['fawp_checkbox_field_7']) ? $options['fawp_checkbox_field_7'] :0 ;
         if ($enable_cors && $enable_cors == 1) {
             $headers = apply_filters('fawp_auth_cors_allow_headers', 'Access-Control-Allow-Headers, Content-Type, Authorization');
             header(sprintf('Access-Control-Allow-Headers: %s', $headers));
