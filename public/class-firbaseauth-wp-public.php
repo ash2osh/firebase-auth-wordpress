@@ -120,7 +120,7 @@ class Firbaseauth_Wp_Public {
                 isset($options['fawp_checkbox_field_4']) ? $options['fawp_checkbox_field_4'] : 0,
                 )
         );
-        wp_localize_script($this->plugin_name, 'PHPVAR', $php_vars);
+        wp_localize_script($this->plugin_name, 'FAWP_PHPVAR', $php_vars); //must be unique
     }
 
     private function fix_json($j) {

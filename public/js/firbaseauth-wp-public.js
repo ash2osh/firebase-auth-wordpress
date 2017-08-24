@@ -1,16 +1,15 @@
-/* global firebase, firebaseui, PHPVAR */
+/* global firebase, firebaseui, FAWP_PHPVAR */
 
 (function ($) {
     'use strict';
 
     $(function () {
-        var site_url = PHPVAR.siteurl; //outputs the site url without last /
-        var islogged = PHPVAR.islogged; //is user logged to wp (not checking for firebase login)
-        var fireconfig = PHPVAR.fireconfig;
-        var authurl = PHPVAR.authurl;
-        var authproviders = PHPVAR.authproviders;
-//console.log(PHPVAR);
-
+        var site_url = FAWP_PHPVAR.siteurl; //outputs the site url without last /
+        var islogged = FAWP_PHPVAR.islogged; //is user logged to wp (not checking for firebase login)
+        var fireconfig = FAWP_PHPVAR.fireconfig;
+        var authurl = FAWP_PHPVAR.authurl;
+        var authproviders = FAWP_PHPVAR.authproviders;
+//console.log(FAWP_PHPVAR);
 
 // Initialize Firebase
         var config = fireconfig;
