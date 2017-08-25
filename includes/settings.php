@@ -9,42 +9,42 @@ function fawp_add_admin_menu() {
 
 function fawp_settings_init() {
 
-    register_setting('pluginPage', 'fawp_settings');
+    register_setting('fawpPage', 'fawp_settings');
 
     add_settings_section(
-            'fawp_pluginPage_section', __('', 'fireauth-wp'), 'fawp_settings_section_callback', 'pluginPage'
+            'fawp_fawpPage_section', __('', 'fireauth-wp'), 'fawp_settings_section_callback', 'fawpPage'
     );
 
     add_settings_field(
-            'fawp_textarea_field_0', __('Firebase config object', 'fireauth-wp'), 'fawp_textarea_field_0_render', 'pluginPage', 'fawp_pluginPage_section'
+            'fawp_textarea_field_0', __('Firebase config object', 'fireauth-wp'), 'fawp_textarea_field_0_render', 'fawpPage', 'fawp_fawpPage_section'
     );
 
     add_settings_field(
-            'fawp_checkbox_field_1', __('Facebook login', 'fireauth-wp'), 'fawp_checkbox_field_1_render', 'pluginPage', 'fawp_pluginPage_section'
+            'fawp_checkbox_field_1', __('Facebook login', 'fireauth-wp'), 'fawp_checkbox_field_1_render', 'fawpPage', 'fawp_fawpPage_section'
     );
 
     add_settings_field(
-            'fawp_checkbox_field_2', __('Google login', 'fireauth-wp'), 'fawp_checkbox_field_2_render', 'pluginPage', 'fawp_pluginPage_section'
+            'fawp_checkbox_field_2', __('Google login', 'fireauth-wp'), 'fawp_checkbox_field_2_render', 'fawpPage', 'fawp_fawpPage_section'
     );
 
     add_settings_field(
-            'fawp_checkbox_field_3', __('Twitter login', 'fireauth-wp'), 'fawp_checkbox_field_3_render', 'pluginPage', 'fawp_pluginPage_section'
+            'fawp_checkbox_field_3', __('Twitter login', 'fireauth-wp'), 'fawp_checkbox_field_3_render', 'fawpPage', 'fawp_fawpPage_section'
     );
 
     add_settings_field(
-            'fawp_checkbox_field_4', __('Email Login', 'fireauth-wp'), 'fawp_checkbox_field_4_render', 'pluginPage', 'fawp_pluginPage_section'
+            'fawp_checkbox_field_4', __('Email Login', 'fireauth-wp'), 'fawp_checkbox_field_4_render', 'fawpPage', 'fawp_fawpPage_section'
     );
 
     add_settings_field(
-            'fawp_select_field_5', __('login page', 'fireauth-wp'), 'fawp_select_field_5_render', 'pluginPage', 'fawp_pluginPage_section'
+            'fawp_select_field_5', __('login page', 'fireauth-wp'), 'fawp_select_field_5_render', 'fawpPage', 'fawp_fawpPage_section'
     );
 
     add_settings_field(
-            'fawp_checkbox_field_6', __('override wordpress default login page ?', 'fireauth-wp'), 'fawp_checkbox_field_6_render', 'pluginPage', 'fawp_pluginPage_section'
+            'fawp_checkbox_field_6', __('override wordpress default login page ?', 'fireauth-wp'), 'fawp_checkbox_field_6_render', 'fawpPage', 'fawp_fawpPage_section'
     );
     
      add_settings_field(
-            'fawp_checkbox_field_7', __('Enable CORS  ?', 'fireauth-wp'), 'fawp_checkbox_field_7_render', 'pluginPage', 'fawp_pluginPage_section'
+            'fawp_checkbox_field_7', __('Enable CORS  ?', 'fireauth-wp'), 'fawp_checkbox_field_7_render', 'fawpPage', 'fawp_fawpPage_section'
     );
 }
 
@@ -145,8 +145,8 @@ function fawp_options_page() {
         <h2>Firebase Auth WP Settings page</h2>
 
         <?php
-        settings_fields('pluginPage');
-        do_settings_sections('pluginPage');
+        settings_fields('fawpPage');
+        do_settings_sections('fawpPage');
         submit_button();
         ?>
 
