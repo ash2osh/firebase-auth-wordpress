@@ -23,6 +23,7 @@
 //initialize  firebase ui app
         var initApp = function () {
             firebase.auth().onAuthStateChanged(function (user) {
+                
                 if (user) {
                     //if user logged out word press he shuld be logged out firebase as well
                     if (!islogged) {

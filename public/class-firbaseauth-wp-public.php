@@ -140,8 +140,8 @@ class Firbaseauth_Wp_Public {
     }
 
     public function fireauth_signin_short() {
-        $HTML = file_get_contents('partials/fireauth_login.php', TRUE);
-        return $HTML;
+      include_once 'partials/fireauth_login.php';
+        
     }
 
     public function parse_signin_page_request() {

@@ -34,11 +34,11 @@ class Firbaseauth_Wp_Activator {
 // Information needed for creating the plugin's pages
         $page_definitions = array(
             'fireauth-signin' => array(
-                'title' => __('Sign In', 'firbaseauth-wp'),
+                'title' => __('Sign In', 'fawp'),
                 'content' => '[fireauth_signin]'
             ),
             'fireauth-account' => array(
-                'title' => __('Your Account', 'firbaseauth-wp'),
+                'title' => __('Your Account', 'fawp'),
                 'content' => '[fireauth_accountinfo]'
             ),
         );
