@@ -115,10 +115,10 @@ class Firbaseauth_Wp_Public {
             'authurl' => $options['fawp_select_field_5'],
             'authproviders' => array(
                 isset($options['fawp_checkbox_field_1']) ? $options['fawp_checkbox_field_1'] : 0,
-                 isset($options['fawp_checkbox_field_2']) ? $options['fawp_checkbox_field_2'] : 0,
+                isset($options['fawp_checkbox_field_2']) ? $options['fawp_checkbox_field_2'] : 0,
                 isset($options['fawp_checkbox_field_3']) ? $options['fawp_checkbox_field_3'] : 0,
                 isset($options['fawp_checkbox_field_4']) ? $options['fawp_checkbox_field_4'] : 0,
-                )
+            )
         );
         wp_localize_script($this->plugin_name, 'FAWP_PHPVAR', $php_vars); //must be unique
     }
@@ -140,8 +140,10 @@ class Firbaseauth_Wp_Public {
     }
 
     public function fireauth_signin_short() {
-      include_once 'partials/fireauth_login.php';
-        
+        ob_start();
+        include_once 'partials/fireauth_login.php';
+        $html = ob_get_clean(); // get the buffer contents and clean it
+        return $html;
     }
 
     public function parse_signin_page_request() {
@@ -269,7 +271,7 @@ class Firbaseauth_Wp_Public {
 
     public function add_cors_support() {
         $options = get_option('fawp_settings');
-        $enable_cors = isset($options['fawp_checkbox_field_7']) ? $options['fawp_checkbox_field_7'] :0 ;
+        $enable_cors = isset($options['fawp_checkbox_field_7']) ? $options['fawp_checkbox_field_7'] : 0;
         if ($enable_cors && $enable_cors == 1) {
             $headers = apply_filters('fawp_auth_cors_allow_headers', 'Access-Control-Allow-Headers, Content-Type, Authorization');
             header(sprintf('Access-Control-Allow-Headers: %s', $headers));
