@@ -179,6 +179,7 @@ class Firbaseauth_Wp {
                 
                 //shortcodes are diffirent !!
                 add_shortcode( 'fireauth_signin', array($plugin_public, 'fireauth_signin_short') );
+                add_shortcode( 'fireauth_signin_only', array($plugin_public, 'fireauth_signin_only_short') );
 	}
 
 	/**

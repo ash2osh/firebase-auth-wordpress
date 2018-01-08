@@ -239,26 +239,28 @@
         },
         {
             "name": "kreait/firebase-tokens",
-            "version": "1.6.1",
+            "version": "1.7.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/kreait/firebase-tokens-php.git",
-                "reference": "feb0e63f0034d50e2b71b240e22257f186a2e364"
+                "reference": "cbcbd1fe73bd83873c994b1572ac8ae93ba96d27"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/kreait/firebase-tokens-php/zipball/feb0e63f0034d50e2b71b240e22257f186a2e364",
-                "reference": "feb0e63f0034d50e2b71b240e22257f186a2e364",
+                "url": "https://api.github.com/repos/kreait/firebase-tokens-php/zipball/cbcbd1fe73bd83873c994b1572ac8ae93ba96d27",
+                "reference": "cbcbd1fe73bd83873c994b1572ac8ae93ba96d27",
                 "shasum": ""
             },
             "require": {
                 "fig/http-message-util": "^1.1",
                 "guzzlehttp/guzzle": "^6.2.1",
                 "lcobucci/jwt": "^3.2",
-                "php": "^7.0"
+                "php": "^7.0",
+                "psr/simple-cache": "^1.0"
             },
             "require-dev": {
                 "friendsofphp/php-cs-fixer": "^2.0",
+                "phpstan/phpstan-phpunit": "^0.9.3",
                 "phpunit/phpunit": "^6.0"
             },
             "type": "library",
@@ -286,20 +288,20 @@
                 "google",
                 "token"
             ],
-            "time": "2017-07-12T17:38:06+00:00"
+            "time": "2018-01-03T13:55:29+00:00"
         },
         {
             "name": "lcobucci/jwt",
-            "version": "3.2.1",
+            "version": "3.2.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/lcobucci/jwt.git",
-                "reference": "ddce703826f9c5229781933b1a39069e38e6a0f3"
+                "reference": "0b5930be73582369e10c4d4bb7a12bac927a203c"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/lcobucci/jwt/zipball/ddce703826f9c5229781933b1a39069e38e6a0f3",
-                "reference": "ddce703826f9c5229781933b1a39069e38e6a0f3",
+                "url": "https://api.github.com/repos/lcobucci/jwt/zipball/0b5930be73582369e10c4d4bb7a12bac927a203c",
+                "reference": "0b5930be73582369e10c4d4bb7a12bac927a203c",
                 "shasum": ""
             },
             "require": {
@@ -344,7 +346,7 @@
                 "JWS",
                 "jwt"
             ],
-            "time": "2016-10-31T20:09:32+00:00"
+            "time": "2017-09-01T08:23:26+00:00"
         },
         {
             "name": "psr/http-message",
@@ -395,6 +397,54 @@
                 "response"
             ],
             "time": "2016-08-06T14:39:51+00:00"
+        },
+        {
+            "name": "psr/simple-cache",
+            "version": "1.0.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/php-fig/simple-cache.git",
+                "reference": "753fa598e8f3b9966c886fe13f370baa45ef0e24"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/php-fig/simple-cache/zipball/753fa598e8f3b9966c886fe13f370baa45ef0e24",
+                "reference": "753fa598e8f3b9966c886fe13f370baa45ef0e24",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.3.0"
+            },
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "1.0.x-dev"
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Psr\\SimpleCache\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "PHP-FIG",
+                    "homepage": "http://www.php-fig.org/"
+                }
+            ],
+            "description": "Common interfaces for simple caching",
+            "keywords": [
+                "cache",
+                "caching",
+                "psr",
+                "psr-16",
+                "simple-cache"
+            ],
+            "time": "2017-01-02T13:31:39+00:00"
         }
     ],
     "packages-dev": [],

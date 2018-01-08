@@ -76,7 +76,12 @@ class Firbaseauth_Wp_Public {
          * class.
          */
         wp_enqueue_style($this->plugin_name, plugin_dir_url(__FILE__) . 'css/firbaseauth-wp-public.css', array(), $this->version, 'all');
-        wp_enqueue_style('firebaseui-css', 'https://cdn.firebase.com/libs/firebaseui/2.3.0/firebaseui.css');
+        $lang = substr(get_bloginfo('language'), 0, 2);
+        if ($lang == 'ar') {
+            wp_enqueue_style('firebaseui-css', 'https://www.gstatic.com/firebasejs/ui/2.5.1/firebase-ui-auth-rtl.css');
+        } else {
+            wp_enqueue_style('firebaseui-css', 'https://cdn.firebase.com/libs/firebaseui/2.5.1/firebaseui.css');
+        }
     }
 
     /**
@@ -98,7 +103,9 @@ class Firbaseauth_Wp_Public {
          * class.
          */
         wp_enqueue_script('firebasejs', 'https://www.gstatic.com/firebasejs/4.2.0/firebase.js');
-        wp_enqueue_script('firebaseui-js', 'https://cdn.firebase.com/libs/firebaseui/2.3.0/firebaseui.js');
+        //wp_enqueue_script('firebaseui-js', 'https://cdn.firebase.com/libs/firebaseui/2.5.1/firebaseui.js');
+        $lang = substr(get_bloginfo('language'), 0, 2);
+        wp_enqueue_script('firebaseui-js', 'https://www.gstatic.com/firebasejs/ui/2.5.1/firebase-ui-auth__' . $lang . '.js');
 
 
         wp_enqueue_script($this->plugin_name, plugin_dir_url(__FILE__) . 'js/firbaseauth-wp-public.js', array('jquery'), $this->version, false);
@@ -146,6 +153,26 @@ class Firbaseauth_Wp_Public {
         return $html;
     }
 
+    public function fireauth_signin_only_short($atts) {
+        $a = shortcode_atts(array(
+            'hidein' => '',
+                ), $atts);
+        $hide = $a['hidein']; //pages to be hidden in
+        if ($hide) {
+            $arr = explode(',', $hide);
+            foreach ($arr as $page) {
+                if (is_page($page)) {
+                    return;
+                }
+            }
+        }
+
+        ob_start();
+        include_once 'partials/fireauth_login_only.php';
+        $html = ob_get_clean(); // get the buffer contents and clean it
+        return $html;
+    }
+
     public function parse_signin_page_request() {
         $options = get_option('fawp_settings');
         $authurl = $options['fawp_select_field_5'];
@@ -172,9 +199,10 @@ class Firbaseauth_Wp_Public {
 
                     if ($uid) {
                         global $wpdb;
-                        $user_id = $wpdb->get_var("SELECT user_id FROM " . $wpdb->prefix . "fireauth_users where uid=" . $uid);
+                        $user_id = $wpdb->get_var("SELECT user_id FROM " . $wpdb->prefix . "fireauth_users where uid='" . $uid."'");
                         if ($user_id) { //user exists sign him in
-                            wp_set_auth_cookie($user_id, TRUE);
+                            $this->sign_in_user($user_id);
+                            
                         } else {//create user and add him fireath users
                             $user = get_user_by('email', $email);
                             if ($user) {//if user email already registered
@@ -199,7 +227,7 @@ class Firbaseauth_Wp_Public {
                                     'uid' => $uid
                                         )
                                 );
-                                wp_set_auth_cookie($user_id, TRUE);
+                                $this->sign_in_user($user_id);
                             }
                         }
                         wp_redirect(home_url());
@@ -209,6 +237,14 @@ class Firbaseauth_Wp_Public {
                 wp_redirect(home_url());
             }
         }
+    }
+    //just mimicking ulitmate member plugin
+    private function sign_in_user($userid){
+        wp_set_auth_cookie($userid, TRUE);
+        $userdata = WP_User::get_data_by( 'ID', $userid  );
+        $user = new WP_User;
+	$user->init( $userdata );
+        do_action( 'wp_login', $user->user_login, $user );
     }
 
     public function logout_redirect() {
