@@ -241,6 +241,7 @@ class Firbaseauth_Wp_Public {
     //just mimicking ulitmate member plugin
     private function sign_in_user($userid){
         wp_set_auth_cookie($userid, TRUE);
+        add_user_meta( $userid, 'wp_fireauth', TRUE); // a marker on the fireauth login //get_user_meta(get_current_user_id(), 'wp_fireauth', TRUE) )
         $userdata = WP_User::get_data_by( 'ID', $userid  );
         $user = new WP_User;
 	$user->init( $userdata );

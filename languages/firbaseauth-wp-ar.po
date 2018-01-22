@@ -1,0 +1,34 @@
+msgid ""
+msgstr ""
+"POT-Creation-Date: 2018-01-09 01:44+0000\n"
+"Language: ar\n"
+"Plural-Forms: nplurals=6; plural=n==0 ? 0 : n==1 ? 1 : n==2 ? 2 : n%100 >= 3 "
+"&& n%100<=10 ? 3 : n%100 >= 11 && n%100<=99 ? 4 : 5;\n"
+"PO-Revision-Date: 2018-01-09 01:45+0000\n"
+"X-Generator: Loco https://localise.biz/\n"
+"Project-Id-Version: firebase wordpress auth\n"
+"Report-Msgid-Bugs-To: \n"
+"Last-Translator: nobody <orochimaru.ash@gmail.com>\n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit"
+
+#. Name of the plugin
+msgid "firebase wordpress auth"
+msgstr ""
+
+#. Description of the plugin
+msgid ""
+"This is a short description of what the plugin does. It's displayed in the "
+"WordPress admin area."
+msgstr ""
+
+#. URI of the plugin
+#. Author URI of the plugin
+msgid "http://ash2osh.com"
+msgstr ""
+
+#. Author of the plugin
+msgid "ahmed sherif"
+msgstr ""

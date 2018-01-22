@@ -1,0 +1,27 @@
+#, fuzzy
+msgid ""
+msgstr ""
+"POT-Creation-Date: 2018-01-09 01:44+0000\n"
+"Language: \n"
+"Plural-Forms: nplurals=INTEGER; plural=EXPRESSION\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"X-Generator: Loco - https://localise.biz/"
+
+#. Name of the plugin
+msgid "firebase wordpress auth"
+msgstr ""
+
+#. Description of the plugin
+msgid ""
+"This is a short description of what the plugin does. It's displayed in the "
+"WordPress admin area."
+msgstr ""
+
+#. URI of the plugin
+#. Author URI of the plugin
+msgid "http://ash2osh.com"
+msgstr ""
+
+#. Author of the plugin
+msgid "ahmed sherif"
+msgstr ""
