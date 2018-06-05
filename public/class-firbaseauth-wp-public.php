@@ -179,7 +179,9 @@ class Firbaseauth_Wp_Public {
         if (is_page($authurl)) {
             if (!is_user_logged_in()) {
                 if (isset($_GET['tokken']) && $_GET['tokken']) {
-                    $projectId = 'testing-efcb1';
+                    $firebaseConfig = json_decode($this->fix_json($options['fawp_textarea_field_0']));
+
+                    $projectId = $firebaseConfig->projectId;
                     $verifier = new Verifier($projectId);
                     $idTokenString = $_GET['tokken'];
                     $uid = '';
@@ -190,13 +192,16 @@ class Firbaseauth_Wp_Public {
                         $email = $verifiedIdToken->getClaim('email');
                         $uname = $verifiedIdToken->getClaim('name');
                     } catch (\Firebase\Auth\Token\Exception\ExpiredToken $e) {
+                        echo 'ExpiredToken : ';
                         echo $e->getMessage();
                     } catch (\Firebase\Auth\Token\Exception\IssuedInTheFuture $e) {
+                       echo 'IssuedInTheFuture : ';
                         echo $e->getMessage();
                     } catch (\Firebase\Auth\Token\Exception\InvalidToken $e) {
+                       echo 'InvalidToken : ';
                         echo $e->getMessage();
                     }
-
+                    
                     if ($uid) {
                         global $wpdb;
                         $user_id = $wpdb->get_var("SELECT user_id FROM " . $wpdb->prefix . "fireauth_users where uid='" . $uid."'");
@@ -204,7 +209,10 @@ class Firbaseauth_Wp_Public {
                             $this->sign_in_user($user_id);
                             
                         } else {//create user and add him fireath users
-                            $user = get_user_by('email', $email);
+                            $user = get_user_by('email', $email) ;
+                            if (!$user) {//maybe he changed email
+                               $user = get_user_by('login', $email) ; 
+                            }
                             if ($user) {//if user email already registered
                                 $user_id = $user->ID;
                             } else {
@@ -230,7 +238,7 @@ class Firbaseauth_Wp_Public {
                                 $this->sign_in_user($user_id);
                             }
                         }
-                        wp_redirect(home_url());
+                        wp_redirect($user_id);
                     }
                 }
             } else {
