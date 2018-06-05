@@ -33,7 +33,8 @@ if (!defined('WPINC')) {
  * The code that runs during plugin activation.
  * This action is documented in includes/class-firbaseauth-wp-activator.php
  */
-function activate_firbaseauth_wp() {
+function activate_firbaseauth_wp()
+{
     require_once plugin_dir_path(__FILE__) . 'includes/class-firbaseauth-wp-activator.php';
     Firbaseauth_Wp_Activator::activate();
 }
@@ -42,7 +43,8 @@ function activate_firbaseauth_wp() {
  * The code that runs during plugin deactivation.
  * This action is documented in includes/class-firbaseauth-wp-deactivator.php
  */
-function deactivate_firbaseauth_wp() {
+function deactivate_firbaseauth_wp()
+{
     require_once plugin_dir_path(__FILE__) . 'includes/class-firbaseauth-wp-deactivator.php';
     Firbaseauth_Wp_Deactivator::deactivate();
 }
@@ -65,7 +67,8 @@ require plugin_dir_path(__FILE__) . 'includes/class-firbaseauth-wp.php';
  *
  * @since    1.0.0
  */
-function run_firbaseauth_wp() {
+function run_firbaseauth_wp()
+{
 
     $plugin = new Firbaseauth_Wp();
     $plugin->run();
@@ -79,3 +82,15 @@ require_once plugin_dir_path(__FILE__) . 'includes/settings.php';
 
 
 
+if (!function_exists('getallheaders')) {
+    function getallheaders()
+    {
+        $headers = array();
+        foreach ($_SERVER as $name => $value) {
+            if (substr($name, 0, 5) == 'HTTP_') {
+                $headers[str_replace(' ', '-', ucwords(strtolower(str_replace('_', ' ', substr($name, 5)))))] = $value;
+            }
+        }
+        return $headers;
+    }
+} 

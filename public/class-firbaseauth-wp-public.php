@@ -274,7 +274,7 @@ class Firbaseauth_Wp_Public {
     public function figure_current_user($user) {
         // is_user_logged_in() causes an ininite loop here :(
 
-        $headers = apache_request_headers();
+        $headers = getallheaders();
         if (isset($headers['Authorization']) && !empty($headers['Authorization'])) {
             $tokken = $headers['Authorization'];
 
