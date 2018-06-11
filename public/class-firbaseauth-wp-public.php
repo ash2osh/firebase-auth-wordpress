@@ -179,6 +179,9 @@ class Firbaseauth_Wp_Public {
         if (is_page($authurl)) {
             if (!is_user_logged_in()) {
                 if (isset($_GET['tokken']) && $_GET['tokken']) {
+                    if (!$this->startsWith($tokken, 'Bearer')) {
+                        wp_redirect(home_url());
+                    }
                     $firebaseConfig = json_decode($this->fix_json($options['fawp_textarea_field_0']));
 
                     $projectId = $firebaseConfig->projectId;
@@ -195,23 +198,22 @@ class Firbaseauth_Wp_Public {
                         echo 'ExpiredToken : ';
                         echo $e->getMessage();
                     } catch (\Firebase\Auth\Token\Exception\IssuedInTheFuture $e) {
-                       echo 'IssuedInTheFuture : ';
+                        echo 'IssuedInTheFuture : ';
                         echo $e->getMessage();
                     } catch (\Firebase\Auth\Token\Exception\InvalidToken $e) {
-                       echo 'InvalidToken : ';
+                        echo 'InvalidToken : ';
                         echo $e->getMessage();
                     }
-                    
+
                     if ($uid) {
                         global $wpdb;
-                        $user_id = $wpdb->get_var("SELECT user_id FROM " . $wpdb->prefix . "fireauth_users where uid='" . $uid."'");
+                        $user_id = $wpdb->get_var("SELECT user_id FROM " . $wpdb->prefix . "fireauth_users where uid='" . $uid . "'");
                         if ($user_id) { //user exists sign him in
                             $this->sign_in_user($user_id);
-                            
                         } else {//create user and add him fireath users
-                            $user = get_user_by('email', $email) ;
+                            $user = get_user_by('email', $email);
                             if (!$user) {//maybe he changed email
-                               $user = get_user_by('login', $email) ; 
+                                $user = get_user_by('login', $email);
                             }
                             if ($user) {//if user email already registered
                                 $user_id = $user->ID;
@@ -246,14 +248,15 @@ class Firbaseauth_Wp_Public {
             }
         }
     }
+
     //just mimicking ulitmate member plugin
-    private function sign_in_user($userid){
+    private function sign_in_user($userid) {
         wp_set_auth_cookie($userid, TRUE);
-        add_user_meta( $userid, 'wp_fireauth', TRUE); // a marker on the fireauth login //get_user_meta(get_current_user_id(), 'wp_fireauth', TRUE) )
-        $userdata = WP_User::get_data_by( 'ID', $userid  );
+        add_user_meta($userid, 'wp_fireauth', TRUE); // a marker on the fireauth login //get_user_meta(get_current_user_id(), 'wp_fireauth', TRUE) )
+        $userdata = WP_User::get_data_by('ID', $userid);
         $user = new WP_User;
-	$user->init( $userdata );
-        do_action( 'wp_login', $user->user_login, $user );
+        $user->init($userdata);
+        do_action('wp_login', $user->user_login, $user);
     }
 
     public function logout_redirect() {
@@ -271,15 +274,24 @@ class Firbaseauth_Wp_Public {
         return $login_url;
     }
 
+    private function startsWith($haystack, $needle) {
+        $length = strlen($needle);
+        return (substr($haystack, 0, $length) === $needle);
+    }
+
     public function figure_current_user($user) {
         // is_user_logged_in() causes an ininite loop here :(
-
+        $options = get_option('fawp_settings');
         $headers = getallheaders();
         if (isset($headers['Authorization']) && !empty($headers['Authorization'])) {
             $tokken = $headers['Authorization'];
+            if (!$this->startsWith($tokken, 'Bearer')) {
+                return $user;
+            }
 
-            $projectId = 'testing-efcb1';
-            $verifier = new Verifier($projectId);
+            $firebaseConfig = json_decode($this->fix_json($options['fawp_textarea_field_0']));
+            $projectId = $firebaseConfig->projectId;
+            $verifier = new Verifier(s);
             $idTokenString = $tokken;
             $uid = '';
             try {
