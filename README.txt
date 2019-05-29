@@ -1,5 +1,7 @@
 === Firebase Auth Wordpress ===
- link: http://ash2osh.com
+### sorry this is an old project no support is given only pull requests
+
+link: http://ash2osh.com
 Tags: login, firebase, authentication , auth
 Requires at least: 3.5
 Tested up to: 4.8.1
